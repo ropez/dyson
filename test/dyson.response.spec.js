@@ -44,6 +44,34 @@ describe('dyson.response', function() {
             });
         });
 
+        it('should render array if template is an array', function(done) {
+
+            var template = [
+                function() {
+                    return 'my function';
+                },
+                'my string',
+                true,
+                42,
+                [1,2,3]
+            ];
+
+            var expected = [
+                'my function',
+                'my string',
+                true,
+                42,
+                [1,2,3]
+            ];
+
+            configDefaults.setValues(template).then(function(actual) {
+
+                _.isEqual(actual, expected).should.equal(true);
+                done();
+
+            });
+        });
+
         it('should parse template objects iteratively', function(done) {
 
             var template = {
